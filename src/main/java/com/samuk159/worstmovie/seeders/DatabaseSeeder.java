@@ -1,5 +1,6 @@
 package com.samuk159.worstmovie.seeders;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,8 +17,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvValidationException;
 import com.samuk159.worstmovie.model.entity.Movie;
 
 @Component
@@ -36,36 +35,35 @@ public class DatabaseSeeder {
 		}
 	}
 	
-	private void seedMovies() throws CsvValidationException, FileNotFoundException, IOException {
+	private void seedMovies() throws FileNotFoundException, IOException {
 		List<Movie> movies = readCSV();
 	}
 	
-	private List<Movie> readCSV() throws FileNotFoundException, IOException, CsvValidationException {
+	private List<Movie> readCSV() throws FileNotFoundException, IOException {
 		List<Movie> movies = new ArrayList<>();
 		File file = ResourceUtils.getFile("classpath:movielist.csv");
         
-		try (
-			Reader reader = new FileReader(file); 
-			CSVReader csvReader = new CSVReader(reader, ';');
-		) {
-			csvReader.skip(1);
-			//TODO ler usando ; como separador
-			
-		    String[] values = null;
-		    long id = 1;
-		    
-		    while ((values = csvReader.readNext()) != null) {
-		    	Movie movie = new Movie(
-	    			id, 
-	    			Integer.parseInt(values[0]), 
-	    			values[1], 
-	    			values[2], 
-	    			values[3], 
-	    			"yes".equalsIgnoreCase(values[4])
-				);
-		    	System.out.println(movie);
-		    	movies.add(movie);
-		        id++;
+		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+		    String line;
+		    long id = 0;
+		    while ((line = br.readLine()) != null) {		       
+		       if (id > 0) {
+		    	   String[] split = line.split(";");
+		    	   boolean winner = split.length >= 5 && "yes".equalsIgnoreCase(split[4]);
+		    	   Movie movie = new Movie(
+                       id, 
+                       Integer.parseInt(split[0]), 
+                       split[1], 
+                       split[2], 
+                       split[3], 
+                       winner
+                   );
+                   
+                   movies.add(movie);
+
+		       }
+		       
+		       id++;
 		    }
 		}
 		
