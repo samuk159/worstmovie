@@ -12,15 +12,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
 import com.samuk159.worstmovie.model.entity.Movie;
+import com.samuk159.worstmovie.model.repository.MovieRepository;
 
 @Component
 public class DatabaseSeeder {
+	
+	@Autowired
+	private MovieRepository movieRepository;
 
 	@EventListener
 	public void seed(ContextRefreshedEvent event) {
@@ -36,11 +41,6 @@ public class DatabaseSeeder {
 	}
 	
 	private void seedMovies() throws FileNotFoundException, IOException {
-		List<Movie> movies = readCSV();
-	}
-	
-	private List<Movie> readCSV() throws FileNotFoundException, IOException {
-		List<Movie> movies = new ArrayList<>();
 		File file = ResourceUtils.getFile("classpath:movielist.csv");
         
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -59,15 +59,12 @@ public class DatabaseSeeder {
                        winner
                    );
                    
-                   movies.add(movie);
-
+                   movieRepository.save(movie);
 		       }
 		       
 		       id++;
 		    }
 		}
-		
-		return movies;
 	}
 	
 }

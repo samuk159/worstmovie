@@ -9,7 +9,7 @@ public class Movie {
 	@Id
 	private Long id;
 	
-	private Integer year;
+	private Integer releaseYear;
 	private String title;
 	private String studios;
 	private String producers;
@@ -20,10 +20,10 @@ public class Movie {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Movie(Long id, Integer year, String title, String studios, String producers, boolean winner) {
+	public Movie(Long id, Integer releaseYear, String title, String studios, String producers, boolean winner) {
 		super();
 		this.id = id;
-		this.year = year;
+		this.releaseYear = releaseYear;
 		this.title = title;
 		this.studios = studios;
 		this.producers = producers;
@@ -36,12 +36,15 @@ public class Movie {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Integer getYear() {
-		return year;
+	
+	public Integer getReleaseYear() {
+		return releaseYear;
 	}
-	public void setYear(Integer year) {
-		this.year = year;
+
+	public void setReleaseYear(Integer releaseYear) {
+		this.releaseYear = releaseYear;
 	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -69,7 +72,7 @@ public class Movie {
 
 	@Override
 	public String toString() {
-		return "Movie [id=" + id + ", year=" + year + ", title=" + title + ", studios=" + studios + ", producers="
+		return "Movie [id=" + id + ", releaseYear=" + releaseYear + ", title=" + title + ", studios=" + studios + ", producers="
 				+ producers + ", winner=" + winner + "]";
 	}
 	
