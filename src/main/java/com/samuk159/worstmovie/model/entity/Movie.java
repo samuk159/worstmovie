@@ -1,19 +1,33 @@
 package com.samuk159.worstmovie.model.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Movie {
 
 	@Id
+	@GeneratedValue
 	private Long id;
 	
+	@NotNull
+	@Min(0)
 	private Integer releaseYear;
+	
+	@NotBlank
 	private String title;
+	
+	@NotBlank
 	private String studios;
+	
+	@NotBlank
 	private String producers;
-	private boolean winner;
+	
+	private boolean winner = false;
 	
 	public Movie() {
 		super();
