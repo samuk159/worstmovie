@@ -76,8 +76,8 @@ public class MovieController {
 	}
 	
 	@GetMapping("/teste")
-	public List<Object> getMinIntervalProducer() {
-		return repository.getMinIntervalProducer();
+	public List<Object[]> teste() {
+		return repository.getMinAndMaxIntervalProducers();
 	}
 	
 }

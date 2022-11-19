@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,8 @@ public class DatabaseSeeder {
 	public void seed(ContextRefreshedEvent event) {
 		try {
 			System.out.println("Starting seeder");
-			seedMovies();
+			//seedMovies();
+			seedMockData();
 		    System.out.println("Seed finished");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -40,6 +42,23 @@ public class DatabaseSeeder {
 		}
 	}
 	
+	private void seedMockData() {
+		List<Movie> mockMovies = new LinkedList<Movie>() {{
+			add(new Movie(1l, 2000, "a", "a", "a", false));
+			add(new Movie(2l, 2000, "a", "a", "a", true));
+			add(new Movie(3l, 2000, "b", "b", "b", true));
+			add(new Movie(4l, 2010, "b", "b", "b", true));
+			add(new Movie(5l, 2011, "b", "b", "b", true));
+			add(new Movie(6l, 2000, "c", "c", "c", true));
+			add(new Movie(7l, 2002, "c", "c", "c", true));
+			add(new Movie(8l, 2022, "c", "c", "c", true));
+		}};
+		
+		for (Movie m : mockMovies) {
+			this.movieRepository.save(m);
+		}
+	}
+
 	private void seedMovies() throws FileNotFoundException, IOException {
 		File file = ResourceUtils.getFile("classpath:movielist.csv");
         

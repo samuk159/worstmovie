@@ -4,8 +4,8 @@ public class PrizeIntervalRow {
 
 	private String producer;
 	private Long interval;
-	private Long previousWin;
-	private Long followingWin;
+	private Integer previousWin;
+	private Integer followingWin;
 	
 	public String getProducer() {
 		return producer;
@@ -19,16 +19,16 @@ public class PrizeIntervalRow {
 	public void setInterval(Long interval) {
 		this.interval = interval;
 	}
-	public Long getPreviousWin() {
+	public Integer getPreviousWin() {
 		return previousWin;
 	}
-	public void setPreviousWin(Long previousWin) {
+	public void setPreviousWin(Integer previousWin) {
 		this.previousWin = previousWin;
 	}
-	public Long getFollowingWin() {
+	public Integer getFollowingWin() {
 		return followingWin;
 	}
-	public void setFollowingWin(Long followingWin) {
+	public void setFollowingWin(Integer followingWin) {
 		this.followingWin = followingWin;
 	}
 	

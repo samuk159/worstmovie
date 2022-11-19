@@ -22,10 +22,16 @@ public interface MovieRepository extends JpaRepository<Movie, Long>, PagingAndSo
 			//+ "group by m.producers"
 	)*/
 	@Query(
-			"select m1, m2 from Movie m1 "
-			+ "join Movie m2 on m1.producers = m2.producers and m1.id != m2.id and m2.winner = true "
+			"select "
+			//+ "m1, m2 "
+			+ "m1.producers, "
+			+ "min(m2.releaseYear - m1.releaseYear) as minDiff, "
+			+ "max(m2.releaseYear - m1.releaseYear) as maxDiff "
+			+ "from Movie m1 "
+			+ "inner join Movie m2 on m1.producers = m2.producers and m1.id != m2.id and m2.winner = true and m2.releaseYear >= m1.releaseYear "
 			+ "where m1.winner = true "
+			+ "group by m1.producers"
 	)
-	public List<Object> getMinIntervalProducer();
+	public List<Object[]> getMinAndMaxIntervalProducers();
 	
 }
