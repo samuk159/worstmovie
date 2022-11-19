@@ -1,5 +1,6 @@
 package com.samuk159.worstmovie.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -72,6 +73,11 @@ public class MovieController {
 	public ResponseEntity<Movie> delete(@PathVariable Long id) {
 		repository.deleteById(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/teste")
+	public List<Object> getMinIntervalProducer() {
+		return repository.getMinIntervalProducer();
 	}
 	
 }
