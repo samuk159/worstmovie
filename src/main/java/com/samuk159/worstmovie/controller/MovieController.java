@@ -75,9 +75,4 @@ public class MovieController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@GetMapping("/teste")
-	public List<Object[]> teste() {
-		return repository.getMinAndMaxIntervalProducers();
-	}
-	
 }

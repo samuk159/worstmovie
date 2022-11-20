@@ -3,21 +3,34 @@ package com.samuk159.worstmovie.dto;
 public class PrizeIntervalRow {
 
 	private String producer;
-	private Long interval;
 	private Integer previousWin;
 	private Integer followingWin;
 	
+	public PrizeIntervalRow() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public PrizeIntervalRow(String producer) {
+		super();
+		this.producer = producer;
+	}
+
+	public PrizeIntervalRow(String producer, Integer previousWin, Integer followingWin) {
+		super();
+		this.producer = producer;
+		this.previousWin = previousWin;
+		this.followingWin = followingWin;
+	}
+
 	public String getProducer() {
 		return producer;
 	}
 	public void setProducer(String producer) {
 		this.producer = producer;
 	}
-	public Long getInterval() {
-		return interval;
-	}
-	public void setInterval(Long interval) {
-		this.interval = interval;
+	public int getInterval() {
+		return followingWin - previousWin;
 	}
 	public Integer getPreviousWin() {
 		return previousWin;

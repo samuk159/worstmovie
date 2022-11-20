@@ -21,7 +21,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long>, PagingAndSo
 			+ "and m.producers = 'Bo Derek'"
 			//+ "group by m.producers"
 	)*/
-	@Query(
+	/*@Query(
 			"select "
 			//+ "m1, m2 "
 			+ "m1.producers, "
@@ -33,6 +33,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long>, PagingAndSo
 			+ "where m1.winner = true "
 			+ "group by m1.producers "
 	)
-	public List<Object[]> getMinAndMaxIntervalProducers();
+	public List<Object[]> getMinAndMaxIntervalProducers();*/
+	
+	public List<Movie> findByWinnerTrueOrderByProducersAscReleaseYearAsc();
 	
 }
