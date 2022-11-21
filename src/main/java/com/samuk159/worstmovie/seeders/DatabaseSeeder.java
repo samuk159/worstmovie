@@ -32,8 +32,8 @@ public class DatabaseSeeder {
 	public void seed(ContextRefreshedEvent event) {
 		try {
 			System.out.println("Starting seeder");
-			//seedMovies();
-			seedMockData();
+			seedMovies();
+			//seedMockData();
 		    System.out.println("Seed finished");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,6 +52,9 @@ public class DatabaseSeeder {
 			add(new Movie(6l, 2000, "c", "c", "c", true));
 			add(new Movie(7l, 2002, "c", "c", "c", true));
 			add(new Movie(8l, 2022, "c", "c", "c", true));
+			
+			add(new Movie(9l, 2001, "a", "a", "a", true));
+			add(new Movie(10l, 2022, "a", "a", "a", true));
 		}};
 		
 		for (Movie m : mockMovies) {

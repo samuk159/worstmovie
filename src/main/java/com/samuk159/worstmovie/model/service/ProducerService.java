@@ -23,38 +23,36 @@ public class ProducerService {
 	public PrizeIntervalDTO getMinAndMaxPrizeIntervals() {
 		List<Movie> winningMovies = movieRepository.findByWinnerTrueOrderByProducersAscReleaseYearAsc();
 		Map<String, List<Movie>> producersMovies = groupMoviesByProducer(winningMovies); 
+		PrizeIntervalDTO result = new PrizeIntervalDTO();		
+		Integer minInterval = null;
+		Integer maxInterval = null;
 		
-		PrizeIntervalRow min = null;
-		PrizeIntervalRow max = null;
-		
-		for (Entry<String, List<Movie>> entry : producersMovies.entrySet()) {
-			Movie previous = null;
-			
+		for (Entry<String, List<Movie>> entry : producersMovies.entrySet()) {			
 			for (int i = 0; i < entry.getValue().size(); i++) {				
 				for (int j = i + 1; j < entry.getValue().size(); j++) {
 					Movie m1 = entry.getValue().get(i);
 					Movie m2 = entry.getValue().get(j);
 					PrizeIntervalRow current = new PrizeIntervalRow(entry.getKey(), m1.getReleaseYear(), m2.getReleaseYear());
 					
-					if (min == null || current.getInterval() < min.getInterval()) {
-						min = current;
+					if (minInterval == null || current.getInterval() <= minInterval) {
+						if (minInterval != null && current.getInterval() < minInterval) {
+							result.getMin().clear();
+						}
+						
+						minInterval = current.getInterval();						
+						result.getMin().add(current);
 					} 
 					
-					if (max == null || current.getInterval() > max.getInterval()) {
-						max = current;
+					if (maxInterval == null || current.getInterval() >= maxInterval) {
+						if (maxInterval != null && current.getInterval() > maxInterval) {
+							result.getMax().clear();
+						}
+						
+						maxInterval = current.getInterval();						
+						result.getMax().add(current);
 					}
 				}
 			}
-		}
-		
-		PrizeIntervalDTO result = new PrizeIntervalDTO();
-		
-		if (min != null) {
-			result.getMin().add(min);
-		}
-		
-		if (max != null) {
-			result.getMax().add(max);
 		}
 		
 		return result;
