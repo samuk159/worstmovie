@@ -27,10 +27,10 @@ public class ProducerService extends AbstractService<Producer> {
 	private ProducerRepository producerRepository;
 	
 	public PrizeIntervalDTO getMinAndMaxPrizeIntervals() {
-		//List<Movie> winningMovies = movieRepository.findByWinnerTrueOrderByProducersAscReleaseYearAsc();
-		//Map<String, List<Movie>> producersMovies = groupMoviesByProducer(winningMovies); 
+		List<Movie> winningMovies = movieRepository.findByWinnerTrueOrderByProducersAscReleaseYearAsc();
+		Map<String, List<Movie>> producersMovies = groupMoviesByProducer(winningMovies); 
 		PrizeIntervalDTO result = new PrizeIntervalDTO();		
-		/*Integer minInterval = null;
+		Integer minInterval = null;
 		Integer maxInterval = null;
 		
 		for (Entry<String, List<Movie>> entry : producersMovies.entrySet()) {			
@@ -59,7 +59,7 @@ public class ProducerService extends AbstractService<Producer> {
 					}
 				}
 			}
-		}*/
+		}
 		
 		return result;
 		
@@ -70,22 +70,22 @@ public class ProducerService extends AbstractService<Producer> {
 		return producerRepository;
 	}
 
-	/*private Map<String, List<Movie>> groupMoviesByProducer(List<Movie> movies) {
+	private Map<String, List<Movie>> groupMoviesByProducer(List<Movie> movies) {
 		Map<String, List<Movie>> result = new HashMap<>();
 		
 		for (Movie movie : movies) {
-			String producer = movie.getProducers();
+			List<Producer> producers = movie.getProducers();
 			
-			if (producer != null) {
-				if (result.get(producer) == null) {
-					result.put(producer, new LinkedList<Movie>());
+			for (Producer producer : producers) {
+				if (result.get(producer.getName()) == null) {
+					result.put(producer.getName(), new LinkedList<Movie>());
 				}
 				
-				result.get(producer).add(movie);
+				result.get(producer.getName()).add(movie);
 			}
 		}
 		
 		return result;
-	}*/
+	}
 	
 }
