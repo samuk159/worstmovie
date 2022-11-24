@@ -6,7 +6,7 @@ import java.util.List;
 
 public class StringUtils {
 
-	public static List<String> splitByComma(String str) {
+	public static List<String> splitByComma(String str) {		
 		List<String> list = new LinkedList<>();
 		
 		if (str != null) {

@@ -45,7 +45,7 @@ public class MovieService {
 			if (opt.isPresent()) {
 				newStudios.add(opt.get());
 			} else {
-				newStudios.add(studioRepository.save(studio));
+				newStudios.add(studio);
 			}
 		}
 		
@@ -59,7 +59,7 @@ public class MovieService {
 			if (opt.isPresent()) {
 				newProducers.add(opt.get());
 			} else {
-				newProducers.add(producerRepository.save(producer));
+				newProducers.add(producer);
 			}
 		}
 		
