@@ -3,6 +3,9 @@ package com.samuk159.worstmovie.model.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Studio {
@@ -12,6 +15,10 @@ public class Studio {
 	private Long id;
 	
 	private String name;
+	
+	@JsonIgnore
+	@ManyToOne
+	private Movie movie;
 
 	public Studio() {
 		super();
@@ -37,6 +44,14 @@ public class Studio {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Movie getMovie() {
+		return movie;
+	}
+
+	public void setMovie(Movie movie) {
+		this.movie = movie;
 	}
 	
 }

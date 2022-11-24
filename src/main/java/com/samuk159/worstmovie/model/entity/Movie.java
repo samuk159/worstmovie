@@ -33,13 +33,11 @@ public class Movie {
 	private String title;
 	
 	@NotEmpty
-	@OneToMany
-	@Cascade({CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(mappedBy = "movie")
 	private List<Studio> studios;
 	
 	@NotEmpty
-	@OneToMany
-	@Cascade({CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(mappedBy = "movie")
 	private List<Producer> producers;
 	
 	private boolean winner = false;
