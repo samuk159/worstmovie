@@ -6,11 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.samuk159.worstmovie.dto.PrizeIntervalDTO;
+import com.samuk159.worstmovie.model.entity.Producer;
+import com.samuk159.worstmovie.model.service.AbstractService;
 import com.samuk159.worstmovie.model.service.ProducerService;
 
 @RestController
 @RequestMapping("/producers")
-public class ProducerController {
+public class ProducerController extends AbstractController<Producer> {
 	
 	@Autowired
 	private ProducerService service;
@@ -18,6 +20,11 @@ public class ProducerController {
 	@GetMapping("/prize-intervals")
 	public PrizeIntervalDTO getMinAndMaxPrizeIntervals() {
 		return service.getMinAndMaxPrizeIntervals();
+	}
+
+	@Override
+	protected AbstractService<Producer> getService() {
+		return service;
 	}
 	
 }

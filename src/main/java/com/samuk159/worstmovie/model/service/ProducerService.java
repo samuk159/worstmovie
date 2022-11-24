@@ -7,18 +7,24 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Component;
 
 import com.samuk159.worstmovie.dto.PrizeIntervalDTO;
 import com.samuk159.worstmovie.dto.PrizeIntervalRow;
 import com.samuk159.worstmovie.model.entity.Movie;
+import com.samuk159.worstmovie.model.entity.Producer;
 import com.samuk159.worstmovie.model.repository.MovieRepository;
+import com.samuk159.worstmovie.model.repository.ProducerRepository;
 
 @Component
-public class ProducerService {
+public class ProducerService extends AbstractService<Producer> {
 
 	@Autowired
 	private MovieRepository movieRepository;
+	
+	@Autowired
+	private ProducerRepository producerRepository;
 	
 	public PrizeIntervalDTO getMinAndMaxPrizeIntervals() {
 		//List<Movie> winningMovies = movieRepository.findByWinnerTrueOrderByProducersAscReleaseYearAsc();
@@ -57,6 +63,11 @@ public class ProducerService {
 		
 		return result;
 		
+	}
+
+	@Override
+	protected PagingAndSortingRepository<Producer, Long> getRepository() {
+		return producerRepository;
 	}
 
 	/*private Map<String, List<Movie>> groupMoviesByProducer(List<Movie> movies) {

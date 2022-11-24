@@ -20,19 +20,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.samuk159.worstmovie.model.entity.Movie;
+import com.samuk159.worstmovie.model.entity.Studio;
 import com.samuk159.worstmovie.model.repository.MovieRepository;
 import com.samuk159.worstmovie.model.service.AbstractService;
 import com.samuk159.worstmovie.model.service.MovieService;
+import com.samuk159.worstmovie.model.service.StudioService;
 
 @RestController
-@RequestMapping("/movies")
-public class MovieController extends AbstractController<Movie> {
+@RequestMapping("/studios")
+public class StudioController extends AbstractController<Studio> {
 	
 	@Autowired
-	private MovieService service;
+	private StudioService service;
 
 	@Override
-	protected AbstractService<Movie> getService() {
+	protected AbstractService<Studio> getService() {
 		return service;
 	}
 	

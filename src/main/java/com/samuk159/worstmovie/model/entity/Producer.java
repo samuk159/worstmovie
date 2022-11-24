@@ -4,16 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Producer {
-
-	@Id
-	@GeneratedValue
-	private Long id;
+public class Producer extends AbstractEntity {
 	
+	@NotBlank
 	private String name;
 	
 	public Producer() {
@@ -25,15 +23,7 @@ public class Producer {
 		super();
 		this.name = name;
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	
 	public String getName() {
 		return name;
 	}

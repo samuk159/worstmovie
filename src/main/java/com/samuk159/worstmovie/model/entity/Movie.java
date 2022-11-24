@@ -18,11 +18,7 @@ import javax.validation.constraints.NotNull;
 import com.samuk159.worstmovie.util.StringUtils;
 
 @Entity
-public class Movie {
-
-	@Id
-	@GeneratedValue
-	private Long id;
+public class Movie extends AbstractEntity {
 	
 	@NotNull
 	@Min(0)
@@ -47,20 +43,12 @@ public class Movie {
 	}
 	
 	public Movie(Long id, Integer releaseYear, String title, String studios, String producers, boolean winner) {
-		super();
-		this.id = id;
+		super(id);
 		this.releaseYear = releaseYear;
 		this.title = title;
 		this.studios = StringUtils.splitByComma(studios).stream().map(s -> new Studio(s)).collect(Collectors.toList());
 		this.producers = StringUtils.splitByComma(producers).stream().map(s -> new Producer(s)).collect(Collectors.toList());
 		this.winner = winner;
-	}
-
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
 	}
 	
 	public Integer getReleaseYear() {
@@ -110,7 +98,7 @@ public class Movie {
 
 	@Override
 	public String toString() {
-		return "Movie [id=" + id + ", releaseYear=" + releaseYear + ", title=" + title + ", studios=" + studios + ", producers="
+		return "Movie [id=" + getId() + ", releaseYear=" + releaseYear + ", title=" + title + ", studios=" + studios + ", producers="
 				+ producers + ", winner=" + winner + "]";
 	}
 	

@@ -4,16 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Studio {
-
-	@Id
-	@GeneratedValue
-	private Long id;
+public class Studio extends AbstractEntity {
 	
+	@NotBlank
 	private String name;
 
 	public Studio() {
@@ -24,14 +22,6 @@ public class Studio {
 	public Studio(String name) {
 		super();
 		this.name = name;
-	}
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getName() {
