@@ -21,22 +21,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.samuk159.worstmovie.model.entity.Movie;
 import com.samuk159.worstmovie.model.repository.MovieRepository;
+import com.samuk159.worstmovie.model.service.MovieService;
 
 @RestController
 @RequestMapping("/movies")
 public class MovieController {
 	
 	@Autowired
-	private MovieRepository repository;
+	private MovieService service;
 	
 	@GetMapping
 	public Page<Movie> findAll(Pageable pageable) {
-		return repository.findAll(pageable);
+		return service.findAll(pageable);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Movie> findById(@PathVariable Long id) {
-		Optional<Movie> opt = repository.findById(id);
+		Optional<Movie> opt = service.findById(id);
 		if (opt.isPresent()) {
 			return ResponseEntity.ok(opt.get());
 		} else {
@@ -53,17 +54,17 @@ public class MovieController {
 			return ResponseEntity.badRequest().body(res);
 		}
 		
-		res.setData(repository.save(movie));
+		res.setData(service.save(movie));
 		return ResponseEntity.status(HttpStatus.CREATED).body(res);
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<Movie> update(@PathVariable Long id, @Valid @RequestBody Movie movie) {
-		Optional<Movie> opt = repository.findById(id);
+		Optional<Movie> opt = service.findById(id);
 		
 		if (opt.isPresent()) {
 			movie.setId(id);
-			return ResponseEntity.ok(repository.save(movie));
+			return ResponseEntity.ok(service.save(movie));
 		} else {
 			return ResponseEntity.notFound().build();
 		}
@@ -71,7 +72,7 @@ public class MovieController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Movie> delete(@PathVariable Long id) {
-		repository.deleteById(id);
+		service.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
 	

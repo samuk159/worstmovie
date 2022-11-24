@@ -21,12 +21,13 @@ import org.springframework.util.ResourceUtils;
 
 import com.samuk159.worstmovie.model.entity.Movie;
 import com.samuk159.worstmovie.model.repository.MovieRepository;
+import com.samuk159.worstmovie.model.service.MovieService;
 
 @Component
 public class DatabaseSeeder {
 	
 	@Autowired
-	private MovieRepository movieRepository;
+	private MovieService movieService;
 
 	@EventListener
 	public void seed(ContextRefreshedEvent event) {
@@ -58,7 +59,7 @@ public class DatabaseSeeder {
 		}};
 		
 		for (Movie m : mockMovies) {
-			this.movieRepository.save(m);
+			this.movieService.save(m);
 		}
 	}
 
@@ -81,7 +82,7 @@ public class DatabaseSeeder {
                        winner
                    );
                    
-                   movieRepository.save(movie);
+		    	   movieService.save(movie);
 		       }
 		       
 		       id++;

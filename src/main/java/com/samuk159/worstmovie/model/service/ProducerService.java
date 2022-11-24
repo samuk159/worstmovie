@@ -21,10 +21,10 @@ public class ProducerService {
 	private MovieRepository movieRepository;
 	
 	public PrizeIntervalDTO getMinAndMaxPrizeIntervals() {
-		List<Movie> winningMovies = movieRepository.findByWinnerTrueOrderByProducersAscReleaseYearAsc();
-		Map<String, List<Movie>> producersMovies = groupMoviesByProducer(winningMovies); 
+		//List<Movie> winningMovies = movieRepository.findByWinnerTrueOrderByProducersAscReleaseYearAsc();
+		//Map<String, List<Movie>> producersMovies = groupMoviesByProducer(winningMovies); 
 		PrizeIntervalDTO result = new PrizeIntervalDTO();		
-		Integer minInterval = null;
+		/*Integer minInterval = null;
 		Integer maxInterval = null;
 		
 		for (Entry<String, List<Movie>> entry : producersMovies.entrySet()) {			
@@ -53,13 +53,13 @@ public class ProducerService {
 					}
 				}
 			}
-		}
+		}*/
 		
 		return result;
 		
 	}
 
-	private Map<String, List<Movie>> groupMoviesByProducer(List<Movie> movies) {
+	/*private Map<String, List<Movie>> groupMoviesByProducer(List<Movie> movies) {
 		Map<String, List<Movie>> result = new HashMap<>();
 		
 		for (Movie movie : movies) {
@@ -75,6 +75,6 @@ public class ProducerService {
 		}
 		
 		return result;
-	}
+	}*/
 	
 }

@@ -1,11 +1,22 @@
 package com.samuk159.worstmovie.model.entity;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+import com.samuk159.worstmovie.util.StringUtils;
 
 @Entity
 public class Movie {
@@ -21,11 +32,15 @@ public class Movie {
 	@NotBlank
 	private String title;
 	
-	@NotBlank
-	private String studios;
+	@NotEmpty
+	@OneToMany
+	@Cascade({CascadeType.PERSIST, CascadeType.MERGE})
+	private List<Studio> studios;
 	
-	@NotBlank
-	private String producers;
+	@NotEmpty
+	@OneToMany
+	@Cascade({CascadeType.PERSIST, CascadeType.MERGE})
+	private List<Producer> producers;
 	
 	private boolean winner = false;
 	
@@ -39,8 +54,8 @@ public class Movie {
 		this.id = id;
 		this.releaseYear = releaseYear;
 		this.title = title;
-		this.studios = studios;
-		this.producers = producers;
+		this.studios = StringUtils.splitByComma(studios).stream().map(s -> new Studio(s)).collect(Collectors.toList());
+		this.producers = StringUtils.splitByComma(producers).stream().map(s -> new Producer(s)).collect(Collectors.toList());
 		this.winner = winner;
 	}
 
@@ -65,18 +80,30 @@ public class Movie {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getStudios() {
+	public List<Studio> getStudios() {
+		if (studios == null) {
+			studios = new LinkedList<Studio>();
+		}
+		
 		return studios;
 	}
-	public void setStudios(String studios) {
+
+	public void setStudios(List<Studio> studios) {
 		this.studios = studios;
 	}
-	public String getProducers() {
+
+	public List<Producer> getProducers() {
+		if (producers == null) {
+			producers = new LinkedList<Producer>();
+		}
+		
 		return producers;
 	}
-	public void setProducers(String producers) {
+
+	public void setProducers(List<Producer> producers) {
 		this.producers = producers;
 	}
+
 	public boolean isWinner() {
 		return winner;
 	}
