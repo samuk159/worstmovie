@@ -27,18 +27,21 @@ public class ProducerService extends AbstractService<Producer> {
 	private ProducerRepository producerRepository;
 	
 	public PrizeIntervalDTO getMinAndMaxPrizeIntervals() {
-		List<Movie> winningMovies = movieRepository.findByWinnerTrueOrderByProducersAscReleaseYearAsc();
-		Map<String, List<Movie>> producersMovies = groupMoviesByProducer(winningMovies); 
+		List<Producer> producers = producerRepository.findByMovies_WinnerTrue();
 		PrizeIntervalDTO result = new PrizeIntervalDTO();		
 		Integer minInterval = null;
 		Integer maxInterval = null;
 		
-		for (Entry<String, List<Movie>> entry : producersMovies.entrySet()) {			
-			for (int i = 0; i < entry.getValue().size(); i++) {				
-				for (int j = i + 1; j < entry.getValue().size(); j++) {
-					Movie m1 = entry.getValue().get(i);
-					Movie m2 = entry.getValue().get(j);
-					PrizeIntervalRow current = new PrizeIntervalRow(entry.getKey(), m1.getReleaseYear(), m2.getReleaseYear());
+		for (Producer producer : producers) {			
+			for (int i = 0; i < producer.getMovies().size(); i++) {				
+				for (int j = i + 1; j < producer.getMovies().size(); j++) {
+					Movie m1 = producer.getMovies().get(i);
+					Movie m2 = producer.getMovies().get(j);
+					
+					System.out.println(m1.isWinner());
+					System.out.println(m2.isWinner());
+					
+					PrizeIntervalRow current = new PrizeIntervalRow(producer.getName(), m1.getReleaseYear(), m2.getReleaseYear());
 					
 					if (minInterval == null || current.getInterval() <= minInterval) {
 						if (minInterval != null && current.getInterval() < minInterval) {
@@ -68,24 +71,6 @@ public class ProducerService extends AbstractService<Producer> {
 	@Override
 	protected PagingAndSortingRepository<Producer, Long> getRepository() {
 		return producerRepository;
-	}
-
-	private Map<String, List<Movie>> groupMoviesByProducer(List<Movie> movies) {
-		Map<String, List<Movie>> result = new HashMap<>();
-		
-		for (Movie movie : movies) {
-			List<Producer> producers = movie.getProducers();
-			
-			for (Producer producer : producers) {
-				if (result.get(producer.getName()) == null) {
-					result.put(producer.getName(), new LinkedList<Movie>());
-				}
-				
-				result.get(producer.getName()).add(movie);
-			}
-		}
-		
-		return result;
 	}
 	
 }
