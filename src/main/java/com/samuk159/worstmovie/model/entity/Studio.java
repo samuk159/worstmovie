@@ -15,10 +15,6 @@ public class Studio {
 	private Long id;
 	
 	private String name;
-	
-	@JsonIgnore
-	@ManyToOne
-	private Movie movie;
 
 	public Studio() {
 		super();
@@ -44,14 +40,6 @@ public class Studio {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Movie getMovie() {
-		return movie;
-	}
-
-	public void setMovie(Movie movie) {
-		this.movie = movie;
 	}
 	
 }

@@ -16,10 +16,6 @@ public class Producer {
 	
 	private String name;
 	
-	@JsonIgnore
-	@ManyToOne
-	private Movie movie;
-	
 	public Producer() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -44,14 +40,6 @@ public class Producer {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Movie getMovie() {
-		return movie;
-	}
-
-	public void setMovie(Movie movie) {
-		this.movie = movie;
 	}
 	
 }
