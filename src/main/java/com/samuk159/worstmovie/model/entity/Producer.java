@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.Where;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Producer extends AbstractEntity {
@@ -19,7 +20,7 @@ public class Producer extends AbstractEntity {
 	@NotBlank
 	private String name;
 	
-	@JsonIgnore
+	@JsonIgnoreProperties("producers")
 	@ManyToMany(mappedBy = "producers")
 	@Where(clause = "winner = true")
 	private List<Movie> movies;
@@ -48,6 +49,11 @@ public class Producer extends AbstractEntity {
 
 	public void setMovies(List<Movie> movies) {
 		this.movies = movies;
+	}
+
+	@Override
+	public String toString() {
+		return "Producer [name=" + name + "]";
 	}
 	
 }

@@ -29,7 +29,7 @@ public class MovieService extends AbstractService<Movie> {
 	@Autowired
 	private ProducerRepository producerRepository;
 	
-	public Movie save(Movie movie) {
+	public Movie save(Movie movie) {		
 		List<Studio> newStudios = new LinkedList<>();
 		
 		for (Studio studio : movie.getStudios()) {

@@ -15,6 +15,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.samuk159.worstmovie.util.StringUtils;
 
 @Entity
@@ -27,10 +28,12 @@ public class Movie extends AbstractEntity {
 	@NotBlank
 	private String title;
 	
+	@JsonIgnoreProperties("movies")
 	@NotEmpty
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Studio> studios;
 	
+	@JsonIgnoreProperties("movies")
 	@NotEmpty
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Producer> producers;
@@ -51,6 +54,10 @@ public class Movie extends AbstractEntity {
 		this.winner = winner;
 	}
 	
+	public Movie(Integer releaseYear, String producers, boolean winner) {
+		this(0l, releaseYear, producers, producers, producers, winner);
+	}
+
 	public Integer getReleaseYear() {
 		return releaseYear;
 	}
@@ -98,8 +105,7 @@ public class Movie extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return "Movie [id=" + getId() + ", releaseYear=" + releaseYear + ", title=" + title + ", studios=" + studios + ", producers="
-				+ producers + ", winner=" + winner + "]";
+		return "Movie [id=" + getId() + ", releaseYear=" + releaseYear + ", title=" + title + ", winner=" + winner + "]";
 	}
 	
 }

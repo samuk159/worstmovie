@@ -45,21 +45,29 @@ public class DatabaseSeeder {
 	
 	private void seedMockData() {
 		List<Movie> mockMovies = new LinkedList<Movie>() {{
-			add(new Movie(1l, 2000, "a", "a", "a", false));
-			add(new Movie(2l, 2000, "a", "a", "a", true));
-			add(new Movie(3l, 2000, "b", "b", "b", true));
-			add(new Movie(4l, 2010, "b", "b", "b", true));
-			add(new Movie(5l, 2011, "b", "b", "b", true));
-			add(new Movie(6l, 2000, "c", "c", "c", true));
-			add(new Movie(7l, 2002, "c", "c", "c", true));
-			add(new Movie(8l, 2022, "c", "c", "c", true));
+			add(new Movie(2000, "a", false));
+			add(new Movie(2000, "a", true));
+			add(new Movie(2000, "b", true));
+			add(new Movie(2010, "b", true));
+			add(new Movie(2012, "b", true));
+			add(new Movie(2000, "c", true));
+			add(new Movie(2002, "c", true));
+			add(new Movie(2022, "c", true));
 			
-			add(new Movie(9l, 2001, "a", "a", "a", true));
-			add(new Movie(10l, 2022, "a", "a", "a", true));
+			add(new Movie(2003, "a", true));
+			add(new Movie(2022, "a", true));
+			
+			add(new Movie(2000, "d", true));
+			add(new Movie(2002, "d, e", true));
+			add(new Movie(2003, "e", true));
+			
+			add(new Movie(2000, "f", true));
+			add(new Movie(2010, "f, g", true));
+			add(new Movie(2050, "g", true));
 		}};
 		
-		for (Movie m : mockMovies) {
-			this.movieService.save(m);
+		for (Movie movie : mockMovies) {
+			this.movieService.save(movie);
 		}
 	}
 

@@ -44,5 +44,11 @@ public class PrizeIntervalRow {
 	public void setFollowingWin(Integer followingWin) {
 		this.followingWin = followingWin;
 	}
+
+	@Override
+	public String toString() {
+		return "PrizeIntervalRow [producer=" + producer + ", previousWin=" + previousWin + ", followingWin="
+				+ followingWin + ", interval=" + getInterval() + "]";
+	}
 	
 }

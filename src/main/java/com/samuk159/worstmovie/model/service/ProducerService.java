@@ -27,23 +27,19 @@ public class ProducerService extends AbstractService<Producer> {
 	private ProducerRepository producerRepository;
 	
 	public PrizeIntervalDTO getMinAndMaxPrizeIntervals() {
-		//TODO selecionar somente producers com mais de um filme (habing count)
-		//TODO resultado parece incorreto
-		List<Producer> producers = producerRepository.findByMovies_WinnerTrue();
-		//List<Producer> producers = producerRepository.findAll();
-		System.out.println(producers.size());
+		List<Producer> producers = producerRepository.findWinnersWithAtLeastTwoMovies();
+		System.out.println("Producers: " + producers.size());
 		PrizeIntervalDTO result = new PrizeIntervalDTO();		
 		Integer minInterval = null;
 		Integer maxInterval = null;
 		
-		for (Producer producer : producers) {			
+		for (Producer producer : producers) {		
+			System.out.println(producer.getName() + " - " + producer.getMovies().size());
+			
 			for (int i = 0; i < producer.getMovies().size(); i++) {				
 				for (int j = i + 1; j < producer.getMovies().size(); j++) {
 					Movie m1 = producer.getMovies().get(i);
 					Movie m2 = producer.getMovies().get(j);
-					
-					System.out.println(m1.isWinner());
-					System.out.println(m2.isWinner());
 					
 					PrizeIntervalRow current = new PrizeIntervalRow(producer.getName(), m1.getReleaseYear(), m2.getReleaseYear());
 					
