@@ -27,7 +27,11 @@ public class ProducerService extends AbstractService<Producer> {
 	private ProducerRepository producerRepository;
 	
 	public PrizeIntervalDTO getMinAndMaxPrizeIntervals() {
+		//TODO selecionar somente producers com mais de um filme (habing count)
+		//TODO resultado parece incorreto
 		List<Producer> producers = producerRepository.findByMovies_WinnerTrue();
+		//List<Producer> producers = producerRepository.findAll();
+		System.out.println(producers.size());
 		PrizeIntervalDTO result = new PrizeIntervalDTO();		
 		Integer minInterval = null;
 		Integer maxInterval = null;
