@@ -28,4 +28,8 @@ public class StudioService extends AbstractService<Studio> {
 		return studioRepository;
 	}
 	
+	public Optional<Studio> findByName(String name) {
+		return studioRepository.findByName(name);
+	}
+	
 }

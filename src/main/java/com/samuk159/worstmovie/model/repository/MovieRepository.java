@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.samuk159.worstmovie.model.entity.Movie;
+import com.samuk159.worstmovie.model.entity.Producer;
 
 public interface MovieRepository extends JpaRepository<Movie, Long>, PagingAndSortingRepository<Movie, Long> {
 
@@ -36,5 +37,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long>, PagingAndSo
 	public List<Object[]> getMinAndMaxIntervalProducers();*/
 	
 	public List<Movie> findByWinnerTrueOrderByReleaseYearAsc();
+	public List<Movie> findByProducersAndWinnerTrue(Producer producer);
 	
 }

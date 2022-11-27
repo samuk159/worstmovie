@@ -76,13 +76,12 @@ public class DatabaseSeeder {
         
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 		    String line;
-		    long id = 0;
+		    boolean first = true;
 		    while ((line = br.readLine()) != null) {		       
-		       if (id > 0) {
+		       if (!first) {
 		    	   String[] split = line.split(";");
 		    	   boolean winner = split.length >= 5 && "yes".equalsIgnoreCase(split[4]);
 		    	   Movie movie = new Movie(
-                       id, 
                        Integer.parseInt(split[0]), 
                        split[1], 
                        split[2], 
@@ -93,7 +92,7 @@ public class DatabaseSeeder {
 		    	   movieService.save(movie);
 		       }
 		       
-		       id++;
+		       first = false;
 		    }
 		}
 	}

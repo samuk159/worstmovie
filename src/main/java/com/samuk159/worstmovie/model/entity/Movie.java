@@ -30,12 +30,12 @@ public class Movie extends AbstractEntity {
 	
 	@JsonIgnoreProperties("movies")
 	@NotEmpty
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany
 	private List<Studio> studios;
 	
 	@JsonIgnoreProperties("movies")
 	@NotEmpty
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany
 	private List<Producer> producers;
 	
 	private boolean winner = false;
@@ -45,8 +45,7 @@ public class Movie extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Movie(Long id, Integer releaseYear, String title, String studios, String producers, boolean winner) {
-		super(id);
+	public Movie(Integer releaseYear, String title, String studios, String producers, boolean winner) {
 		this.releaseYear = releaseYear;
 		this.title = title;
 		this.studios = StringUtils.splitByComma(studios).stream().map(s -> new Studio(s)).collect(Collectors.toList());
@@ -55,7 +54,7 @@ public class Movie extends AbstractEntity {
 	}
 	
 	public Movie(Integer releaseYear, String producers, boolean winner) {
-		this(0l, releaseYear, producers, producers, producers, winner);
+		this(releaseYear, producers, producers, producers, winner);
 	}
 
 	public Integer getReleaseYear() {

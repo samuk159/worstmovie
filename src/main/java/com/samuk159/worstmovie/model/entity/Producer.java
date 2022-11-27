@@ -22,7 +22,6 @@ public class Producer extends AbstractEntity {
 	
 	@JsonIgnoreProperties("producers")
 	@ManyToMany(mappedBy = "producers")
-	@Where(clause = "winner = true")
 	private List<Movie> movies;
 	
 	public Producer() {

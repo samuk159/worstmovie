@@ -18,8 +18,8 @@ public abstract class AbstractService<T> {
 		return getRepository().findById(id);
 	}
 	
-	public T save(T movie) {
-		return getRepository().save(movie);
+	public T save(T entity) {
+		return getRepository().save(entity);
 	}
 	
 	public void deleteById(Long id) {

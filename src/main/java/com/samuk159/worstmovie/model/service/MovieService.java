@@ -24,20 +24,21 @@ public class MovieService extends AbstractService<Movie> {
 	private MovieRepository movieRepository;
 	
 	@Autowired
-	private StudioRepository studioRepository;
+	private StudioService studioService;
 	
 	@Autowired
-	private ProducerRepository producerRepository;
+	private ProducerService producerService;
 	
 	public Movie save(Movie movie) {		
 		List<Studio> newStudios = new LinkedList<>();
 		
 		for (Studio studio : movie.getStudios()) {
-			Optional<Studio> opt = studioRepository.findByName(studio.getName());
+			Optional<Studio> opt = studioService.findByName(studio.getName());
 			
 			if (opt.isPresent()) {
 				newStudios.add(opt.get());
 			} else {
+				studio = studioService.save(studio);
 				newStudios.add(studio);
 			}
 		}
@@ -47,11 +48,12 @@ public class MovieService extends AbstractService<Movie> {
 		List<Producer> newProducers = new LinkedList<>();
 		
 		for (Producer producer : movie.getProducers()) {
-			Optional<Producer> opt = producerRepository.findByName(producer.getName());
+			Optional<Producer> opt = producerService.findByName(producer.getName());
 			
 			if (opt.isPresent()) {
 				newProducers.add(opt.get());
 			} else {
+				producer = producerService.save(producer);
 				newProducers.add(producer);
 			}
 		}

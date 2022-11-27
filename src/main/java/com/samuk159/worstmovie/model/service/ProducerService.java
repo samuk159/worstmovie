@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,16 @@ import com.samuk159.worstmovie.model.repository.ProducerRepository;
 
 @Component
 public class ProducerService extends AbstractService<Producer> {
-
-	@Autowired
-	private MovieRepository movieRepository;
 	
 	@Autowired
 	private ProducerRepository producerRepository;
+	
+	@Autowired
+	private MovieRepository movieRepository;
+	
+	public Optional<Producer> findByName(String name) {
+		return producerRepository.findByName(name);
+	}
 	
 	public PrizeIntervalDTO getMinAndMaxPrizeIntervals() {
 		List<Producer> producers = producerRepository.findWinnersWithAtLeastTwoMovies();
@@ -34,12 +39,13 @@ public class ProducerService extends AbstractService<Producer> {
 		Integer maxInterval = null;
 		
 		for (Producer producer : producers) {		
-			System.out.println(producer.getName() + " - " + producer.getMovies().size());
+			List<Movie> movies = movieRepository.findByProducersAndWinnerTrue(producer);
+			System.out.println(producer.getName() + " - " + movies.size());
 			
-			for (int i = 0; i < producer.getMovies().size(); i++) {				
-				for (int j = i + 1; j < producer.getMovies().size(); j++) {
-					Movie m1 = producer.getMovies().get(i);
-					Movie m2 = producer.getMovies().get(j);
+			for (int i = 0; i < movies.size(); i++) {				
+				for (int j = i + 1; j < movies.size(); j++) {
+					Movie m1 = movies.get(i);
+					Movie m2 = movies.get(j);
 					
 					PrizeIntervalRow current = new PrizeIntervalRow(producer.getName(), m1.getReleaseYear(), m2.getReleaseYear());
 					
