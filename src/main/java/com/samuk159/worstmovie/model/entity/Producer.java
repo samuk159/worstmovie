@@ -34,6 +34,11 @@ public class Producer extends AbstractEntity {
 		this.name = name;
 	}
 	
+	public Producer(Long id, String name) {
+		super(id);
+		this.name = name;
+	}
+	
 	public String getName() {
 		return name;
 	}

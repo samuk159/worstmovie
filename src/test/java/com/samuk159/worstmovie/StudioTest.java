@@ -44,11 +44,6 @@ public class StudioTest extends AbstractTest<Studio> {
 	}
 
 	@Override
-	public Studio getDeleteTestEntity() {
-		return new Studio("delete test");
-	}
-
-	@Override
 	public ParameterizedTypeReference<CustomPageImpl<Studio>> getPageTypeReference() {
 		return new ParameterizedTypeReference<CustomPageImpl<Studio>>() {};
 	}
