@@ -32,6 +32,11 @@ public class Studio extends AbstractEntity {
 		super();
 		this.name = name;
 	}
+	
+	public Studio(Long id, String name) {
+		super(id);
+		this.name = name;
+	}
 
 	public String getName() {
 		return name;
