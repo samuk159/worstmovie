@@ -56,7 +56,11 @@ public abstract class AbstractTest<T extends AbstractEntity> {
 	}
 	
 	@Test
-	public T findByIdTest() {
+	public void findByIdTest() {
+		_findByIdTest();
+	}
+	
+	public T _findByIdTest() {
 		System.out.println("findByIdTest");
 		CustomPageImpl<T> all = findAllTest(true);
 		T first = all.getContent().get(0);
@@ -105,7 +109,7 @@ public abstract class AbstractTest<T extends AbstractEntity> {
 	@Test
 	public void updateTest() {
 		System.out.println("updateTest");
-		T entity = findByIdTest();
+		T entity = _findByIdTest();
 		
 		List<T> invalidEntites = getInvalidEntities(entity);
 		
