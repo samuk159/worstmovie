@@ -29,7 +29,7 @@ import java.util.List;
 public abstract class AbstractTest<T extends AbstractEntity> {
 	
 	@Autowired
-    private TestRestTemplate testRestTemplate;
+    protected TestRestTemplate testRestTemplate;
 	
 	public abstract String getUrl();
 	public abstract ParameterizedTypeReference<CustomPageImpl<T>> getPageTypeReference();

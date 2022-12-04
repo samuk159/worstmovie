@@ -34,40 +34,11 @@ public class DatabaseSeeder {
 		try {
 			System.out.println("Starting seeder");
 			seedMovies();
-			//seedMockData();
 		    System.out.println("Seed finished");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Seed error");
 			System.exit(1);
-		}
-	}
-	
-	private void seedMockData() {
-		List<Movie> mockMovies = new LinkedList<Movie>() {{
-			add(new Movie(2000, "a", false));
-			add(new Movie(2000, "a", true));
-			add(new Movie(2000, "b", true));
-			add(new Movie(2010, "b", true));
-			add(new Movie(2012, "b", true));
-			add(new Movie(2000, "c", true));
-			add(new Movie(2002, "c", true));
-			add(new Movie(2022, "c", true));
-			
-			add(new Movie(2003, "a", true));
-			add(new Movie(2022, "a", true));
-			
-			add(new Movie(2000, "d", true));
-			add(new Movie(2002, "d, e", true));
-			add(new Movie(2003, "e", true));
-			
-			add(new Movie(2000, "f", true));
-			add(new Movie(2010, "f, g", true));
-			add(new Movie(2050, "g", true));
-		}};
-		
-		for (Movie movie : mockMovies) {
-			this.movieService.save(movie);
 		}
 	}
 
