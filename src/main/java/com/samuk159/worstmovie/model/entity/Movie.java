@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -28,11 +29,13 @@ public class Movie extends AbstractEntity {
 	@NotBlank
 	private String title;
 	
+	@Valid
 	@JsonIgnoreProperties("movies")
 	@NotEmpty
 	@ManyToMany
 	private List<Studio> studios;
 	
+	@Valid
 	@JsonIgnoreProperties("movies")
 	@NotEmpty
 	@ManyToMany
@@ -48,9 +51,21 @@ public class Movie extends AbstractEntity {
 	public Movie(Integer releaseYear, String title, String studios, String producers, boolean winner) {
 		this.releaseYear = releaseYear;
 		this.title = title;
-		this.studios = StringUtils.splitByComma(studios).stream().map(s -> new Studio(s)).collect(Collectors.toList());
-		this.producers = StringUtils.splitByComma(producers).stream().map(s -> new Producer(s)).collect(Collectors.toList());
+		
+		if (studios != null) {
+			this.studios = StringUtils.splitByComma(studios).stream().map(s -> new Studio(s)).collect(Collectors.toList());
+		}
+		
+		if (producers != null) {
+			this.producers = StringUtils.splitByComma(producers).stream().map(s -> new Producer(s)).collect(Collectors.toList());
+		}
+		
 		this.winner = winner;
+	}
+	
+	public Movie(Long id, Integer releaseYear, String title, String studios, String producers, boolean winner) {
+		this(releaseYear, title, studios, producers, winner);
+		this.setId(id);
 	}
 	
 	public Movie(Integer releaseYear, String producers, boolean winner) {
@@ -72,6 +87,9 @@ public class Movie extends AbstractEntity {
 		this.title = title;
 	}
 	public List<Studio> getStudios() {
+		System.out.println("Movie.getStudios");
+		System.out.println(studios);
+		
 		if (studios == null) {
 			studios = new LinkedList<Studio>();
 		}
@@ -84,6 +102,9 @@ public class Movie extends AbstractEntity {
 	}
 
 	public List<Producer> getProducers() {
+		System.out.println("Movie.getProducers");
+		System.out.println(producers);
+		
 		if (producers == null) {
 			producers = new LinkedList<Producer>();
 		}

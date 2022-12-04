@@ -38,7 +38,6 @@ public abstract class AbstractTest<T extends AbstractEntity> {
 	
 	@Test
 	public void findAllTest() {
-		System.out.println("findAllTest");
 		findAllTest(false);
 	}
 	
@@ -60,10 +59,15 @@ public abstract class AbstractTest<T extends AbstractEntity> {
 		_findByIdTest();
 	}
 	
-	public T _findByIdTest() {
-		System.out.println("findByIdTest");
-		CustomPageImpl<T> all = findAllTest(true);
-		T first = all.getContent().get(0);
+	public T _findByIdTest() {		
+		ResponseEntity<CustomPageImpl<T>> response = testRestTemplate
+	            .exchange("/" + getUrl() + "?page=0&size=1", HttpMethod.GET, null, getPageTypeReference());
+	    
+		assertEquals(response.getStatusCode(), HttpStatus.OK);
+		List<T> content = response.getBody().getContent();
+		assertEquals(content.size(), 1);
+		
+		T first = content.get(0);
 		return findByIdTest(first);
 	}
 	
@@ -81,7 +85,6 @@ public abstract class AbstractTest<T extends AbstractEntity> {
 	
 	@Test
 	public void createTest() {
-		System.out.println("createTest");
 		List<T> invalidEntites = getInvalidEntities(null);
 		
 		for (T e : invalidEntites) {
@@ -97,7 +100,6 @@ public abstract class AbstractTest<T extends AbstractEntity> {
 		assertNotNull(created);
 		validateSavedEntity(entity, created);
 		findByIdTest(created);
-		findAllTest(true);
 	}
 	
 	public ResponseEntity<CustomResponse<T>> createTest(T entity) {
@@ -108,7 +110,6 @@ public abstract class AbstractTest<T extends AbstractEntity> {
 	
 	@Test
 	public void updateTest() {
-		System.out.println("updateTest");
 		T entity = _findByIdTest();
 		
 		List<T> invalidEntites = getInvalidEntities(entity);
@@ -136,7 +137,6 @@ public abstract class AbstractTest<T extends AbstractEntity> {
 	
 	@Test
 	public void deleteTest() {
-		System.out.println("deleteTest");
 		T entity = getValidEntity(null);
 		entity = createTest(entity).getBody().getData();
 		ResponseEntity<T> response = testRestTemplate

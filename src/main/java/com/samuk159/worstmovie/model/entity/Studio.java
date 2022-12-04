@@ -1,5 +1,6 @@
 package com.samuk159.worstmovie.model.entity;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -20,7 +21,6 @@ public class Studio extends AbstractEntity {
 	
 	@JsonIgnoreProperties("studios")
 	@ManyToMany(mappedBy = "studios")
-	//@Where(clause = "winner = true")
 	private List<Movie> movies;
 
 	public Studio() {
@@ -47,6 +47,13 @@ public class Studio extends AbstractEntity {
 	}
 	
 	public List<Movie> getMovies() {
+		System.out.println("Studio.getMovies");
+		System.out.println(movies);
+		
+		if (movies == null) {
+			movies = new LinkedList<Movie>();
+		}
+		
 		return movies;
 	}
 

@@ -1,5 +1,6 @@
 package com.samuk159.worstmovie.model.entity;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -20,6 +21,7 @@ public class Producer extends AbstractEntity {
 	@NotBlank
 	private String name;
 	
+	//@JsonIgnoreProperties({ "producers", "studios" })
 	@JsonIgnoreProperties("producers")
 	@ManyToMany(mappedBy = "producers")
 	private List<Movie> movies;
@@ -48,6 +50,13 @@ public class Producer extends AbstractEntity {
 	}
 
 	public List<Movie> getMovies() {
+		System.out.println("Producer.getMovies");
+		System.out.println(movies);
+		
+		if (movies == null) {
+			movies = new LinkedList<Movie>();
+		}
+		
 		return movies;
 	}
 
