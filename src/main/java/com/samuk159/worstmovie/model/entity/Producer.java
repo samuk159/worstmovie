@@ -21,8 +21,7 @@ public class Producer extends AbstractEntity {
 	@NotBlank
 	private String name;
 	
-	//@JsonIgnoreProperties({ "producers", "studios" })
-	@JsonIgnoreProperties("producers")
+	@JsonIgnoreProperties({ "producers", "studios" })
 	@ManyToMany(mappedBy = "producers")
 	private List<Movie> movies;
 	
@@ -49,10 +48,7 @@ public class Producer extends AbstractEntity {
 		this.name = name;
 	}
 
-	public List<Movie> getMovies() {
-		System.out.println("Producer.getMovies");
-		System.out.println(movies);
-		
+	public List<Movie> getMovies() {		
 		if (movies == null) {
 			movies = new LinkedList<Movie>();
 		}

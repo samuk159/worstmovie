@@ -86,10 +86,7 @@ public class Movie extends AbstractEntity {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public List<Studio> getStudios() {
-		System.out.println("Movie.getStudios");
-		System.out.println(studios);
-		
+	public List<Studio> getStudios() {		
 		if (studios == null) {
 			studios = new LinkedList<Studio>();
 		}
@@ -101,10 +98,7 @@ public class Movie extends AbstractEntity {
 		this.studios = studios;
 	}
 
-	public List<Producer> getProducers() {
-		System.out.println("Movie.getProducers");
-		System.out.println(producers);
-		
+	public List<Producer> getProducers() {		
 		if (producers == null) {
 			producers = new LinkedList<Producer>();
 		}

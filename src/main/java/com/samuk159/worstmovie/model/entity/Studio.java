@@ -46,10 +46,7 @@ public class Studio extends AbstractEntity {
 		this.name = name;
 	}
 	
-	public List<Movie> getMovies() {
-		System.out.println("Studio.getMovies");
-		System.out.println(movies);
-		
+	public List<Movie> getMovies() {		
 		if (movies == null) {
 			movies = new LinkedList<Movie>();
 		}
