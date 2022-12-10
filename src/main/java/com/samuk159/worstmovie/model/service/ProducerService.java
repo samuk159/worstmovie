@@ -38,23 +38,15 @@ public class ProducerService extends AbstractService<Producer> {
 		Integer minInterval = null;
 		Integer maxInterval = null;
 		
-		for (Producer producer : producers) {				
-			if (producer.getName().equals("Matthew Vaughn")) {
-				System.out.println(producer);
-			}
-			
+		for (Producer producer : producers) {
 			List<Movie> movies = movieRepository.findByProducersAndWinnerTrueOrderByReleaseYearAsc(producer);
 			System.out.println(producer.getName() + " - " + movies.size());
 			
 			for (int i = 0; i < movies.size() - 1; i++) {		
 				Movie m1 = movies.get(i);
-				System.out.println("m1: " + m1);
 				Movie m2 = movies.get(i + 1);
-				System.out.println("m2: " + m2);
 				
 				PrizeIntervalRow current = new PrizeIntervalRow(producer.getName(), m1.getReleaseYear(), m2.getReleaseYear());
-				System.out.println("current: " + current);
-				System.out.println("minInterval: " + minInterval);
 				
 				if (minInterval == null || current.getInterval() <= minInterval) {
 					if (minInterval != null && current.getInterval() < minInterval) {
@@ -63,21 +55,15 @@ public class ProducerService extends AbstractService<Producer> {
 					
 					minInterval = current.getInterval();						
 					result.getMin().add(current);
-				} 
+				}
 				
-				System.out.println("maxInterval: " + maxInterval);
-				
-				if (maxInterval == null || current.getInterval() >= maxInterval) {
-					System.out.println("result.getMax(): " + result.getMax());
-					
+				if (maxInterval == null || current.getInterval() >= maxInterval) {					
 					if (maxInterval != null && current.getInterval() > maxInterval) {
 						result.getMax().clear();
 					}
 					
-					maxInterval = current.getInterval();	
-					System.out.println("maxInterval: " + maxInterval);
+					maxInterval = current.getInterval();
 					result.getMax().add(current);
-					System.out.println("result.getMax(): " + result.getMax());
 				}
 			}
 		}
