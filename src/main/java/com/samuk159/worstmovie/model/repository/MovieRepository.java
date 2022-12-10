@@ -37,6 +37,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long>, PagingAndSo
 	public List<Object[]> getMinAndMaxIntervalProducers();*/
 	
 	public List<Movie> findByWinnerTrueOrderByReleaseYearAsc();
-	public List<Movie> findByProducersAndWinnerTrue(Producer producer);
+	public List<Movie> findByProducersAndWinnerTrueOrderByReleaseYearAsc(Producer producer);
 	
 }
